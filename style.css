@@ -1,0 +1,65 @@
+div.box{
+    background-size: cover;
+}
+td.title{
+    font-family: 'Oswald', sans-serif;
+    text-transform: uppercase;
+    font-size: 8px;
+    text-align: center;
+    padding: 5px;
+}
+td.title img{
+    max-width: 12px;
+}
+td.time,td.sleep{
+    text-align: center;
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 10px;
+}
+td.sleep{
+    font-style: italic;
+}
+td.illu {
+    text-align: center;
+    min-width: 50px;
+}
+td.illu svg{
+    width: 50px;
+    margin-right: -25px;
+    max-height: 50px;
+
+}
+tr.allsleep{
+    background: lightgray;
+}
+div.footer{
+    background: black;
+}
+span.time{
+    color: white;
+    font-family: 'Raleway', sans-serif;
+    font-size: 10px;
+    line-height: 10px;
+    height: 10px;
+    padding: 5px;
+    display: inline-block;
+}
+a.author{
+    color: white;
+    font-family: 'Permanent Marker', cursive;
+    text-decoration: none;
+    text-align: right;
+    float: right;
+    padding-right: 5px;
+    opacity: 0.9;
+}
+/**
+bleue foncé
+#006CA2
+bleue clair
+#40C0E7
+jaune
+#FCC21B
+orange
+#ED6C30
+**/
