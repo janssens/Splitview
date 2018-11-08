@@ -61,7 +61,7 @@ function getClient()
         if (!file_exists(dirname($tokenPath))) {
             mkdir(dirname($tokenPath), 0700, true);
         }
-        file_put_contents($tokenPath, json_encode($client->getAccessToken()));
+        @file_put_contents($tokenPath, json_encode($client->getAccessToken()));
     }
     return $client;
 }
@@ -123,6 +123,7 @@ if (!empty($values)) {
 	<title></title>
 	<link href="https://fonts.googleapis.com/css?family=Permanent+Marker|Josefin+Sans|Raleway|Oswald" rel="stylesheet">
     <link href="http://tools.raidsaventure.fr/flag-icon-css/css/flag-icon.min.css" rel="stylesheet">
+    <link href="http://live.opentracking.co.uk/_assetsv3/css/leaflet.arws-markers.css" rel="stylesheet">
     <link href="style.css" rel="stylesheet">
 </head>
 <body>
@@ -156,17 +157,24 @@ $canoe = file_get_contents(__DIR__.'/img/canoe.svg');
 				$teamsid =  explode(",", $group['teams']);
 				?>
 					<td class="title">
-						<?php foreach ($teamsid as $teamid) {
-							if ($teams[$teamid]["flag"]) {
-                                echo "<img src=\"http://maps.opentracking.co.uk/presentation/flags/arws/".$teams[$teamid]["flag"].".png\">";
-                                //echo "<span class=\"flag-icon flag-icon-" . $teams[$teamid]["flag"] . "\"></span>&nbsp;";
-                            }
-                            echo "#";
-							echo $teams[$teamid]["bib"];
-							echo " ";
-							echo $teams[$teamid]["slug"];
-							echo "<br/>";
-						}?>
+                            <?php foreach ($teamsid as $teamid) : ?>
+                        <table>
+                            <tbody>
+                                <tr height="23px">
+                                    <?php if ($teams[$teamid]["flag"]) : ?>
+                                        <td >
+                                            <div class="awesome-marker-icon-<?php echo strtoupper($teams[$teamid]["flag"]); ?> awesome-marker" style="position: relative;float: left;">
+                                                <i class=" fa.calendar-text  icon-white "><?php echo $teams[$teamid]["bib"]; ?></i>
+                                            </div>
+                                        </td>
+                                    <?php endif; ?>
+                                    <td>
+                                        <?php echo $teams[$teamid]["slug"]; ?>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                            <?php endforeach; ?>
 					</td>
 				<?php
 			}
@@ -226,7 +234,6 @@ $canoe = file_get_contents(__DIR__.'/img/canoe.svg');
 		<?php
 		foreach ($groups as $group) {
 			echo '<td class="time">';
-			if ($group['delay'] > 0)
 				echo "+".$group['delay']."'";
 			echo "</td>";
 		}
@@ -242,8 +249,11 @@ $canoe = file_get_contents(__DIR__.'/img/canoe.svg');
 			?>
 				<td class="sleep">
 					<?php foreach ($teamsid as $teamid) {
-						if (isset($sleeptimes[$teamid]))
-							echo $sleeptimes[$teamid]."<br/>";
+						if (isset($sleeptimes[$teamid])){
+						    if (count($teamsid)>1)
+                                echo $teams[$teamid]["slug"].' : ';
+                            echo $sleeptimes[$teamid]."<br/>";
+                        }
 					}?>
 				</td>
 			<?php

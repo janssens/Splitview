@@ -63,3 +63,10 @@ jaune
 orange
 #ED6C30
 **/
+.title table{
+    width: 100%;
+    margin-bottom: -25px;
+}
+.title table:last-child{
+    margin-bottom: 0px;
+}
